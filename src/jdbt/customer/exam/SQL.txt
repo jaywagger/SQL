@@ -1,0 +1,18 @@
+황제윤 교육생
+
+create table customer(
+           id varchar2(20) primary key,
+           pass varchar2(20),
+           name varchar2(20) not null,
+           addr varchar2(40),
+	regdate date,
+           point number);
+
+INSERT INTO customer(id, pass, name,addr,regdate,point)
+values ('user01','1234','kim','Seoul','20191212','100');
+
+INSERT INTO customer(id, pass, name,addr,regdate,point)
+values ('user02','1234','park','Suwon','20191213','100');
+
+INSERT INTO customer(id, pass, name,addr,regdate,point)
+values ('user03','12345','lee','Seoul','20191214','100');
