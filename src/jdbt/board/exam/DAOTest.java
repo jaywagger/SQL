@@ -16,24 +16,24 @@ public class DAOTest {
 		show(choice);
 	}
 	public static void show(int choice){
-		MenuUI ui = new MenuUI();
+		MenuUI ui = new MenuUI();//메뉴 객체를 생성하고 변수 ui에 넣었기 때문에
 		switch(choice){
-			case 1:
-				ui.insertMenu();
+			case 1: //1. 게시글등록
+				ui.insertMenu();	//이렇게 클래스의 메서드를 부를 수 있다.
 				break;
-			case 2:
+			case 2: //2. 게시글전체목록조회
 				ui.selectMenu();
 				break;
-			case 3:
+			case 3: //3. 게시글수정
 				ui.updateMenu();
 				break;
-			case 4:
+			case 4: //4. 게시글삭제
 				ui.deleteMenu();
 				break;
-			case 5:
+			case 5: //5. 제목으로 게시글 검색
 				ui.searchMenu();
 				break;
-			case 6:
+			case 6: //6. 게시글 상세보기
 				ui.readMenu();
 				break;
 		}

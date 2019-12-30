@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class MenuUI {
 	Scanner key = new Scanner(System.in);
-	BoardDAO dao = new BoardDAOImpl();
+	BoardDAO dao = new BoardDAOImpl();//왜 굳히 임플로 객체 생성? 정보가 다 임플에 있어서?
+	
 	
 	public void insertMenu(){
 		System.out.println("*******게시글등록********");
@@ -17,7 +18,7 @@ public class MenuUI {
 		//여기에서 BoardDAO의 메소드를 호출하세요
 		//int result = dao.insert(id, title, content);
 		//결과처리
-		BoardDTO board = new BoardDTO(id,title,content);
+		BoardDTO board = new BoardDTO(id,title,content);//이게뭐임?
 		int result = dao.insert(board);
 		if(result>0) {
 			System.out.println("게시글 등록 성공");
