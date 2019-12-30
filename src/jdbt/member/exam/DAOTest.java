@@ -6,10 +6,10 @@ public class DAOTest {
 		Scanner key = new Scanner(System.in);
 		System.out.println("******인사관리시스템********");
 		System.out.println("1. 사원등록");
-		//System.out.println("2. 사원조회");
+		System.out.println("2. 전체사원조회");
 		System.out.println("3. 사원수정");
 		System.out.println("4. 사원퇴사");
-		//System.out.println("5. 주소로 사원 검색");
+		System.out.println("5. 주소로 사원 검색");
 		//System.out.print("원하는 작업을 선택하세요:");
 		int choice  = key.nextInt();
 		show(choice);
@@ -32,6 +32,9 @@ public class DAOTest {
 			case 5:
 				ui.findByAddrMenu();
 				break;
+			/*case 6:
+				ui.loginMenu();
+				break;*/
 		}
 	}
 }

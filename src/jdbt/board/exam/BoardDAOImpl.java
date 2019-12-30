@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 //tb_board 테이블을 엑세스하는 기능이 정의된 클래스
 //DAO: Data Access Object
@@ -116,8 +117,13 @@ public class BoardDAOImpl implements BoardDAO{
 		}
 		return result;
 	}
-	
-	public void select() {
+	//조회한 결과를 ArrayList로 변환하여 리턴
+	public ArrayList<BoardDTO> select() {
+		ArrayList<BoardDTO> boardlist = new ArrayList<BoardDTO>();//전체 게시글을 담을 그릇
+		BoardDTO board = null; //조회한 글을 담을 객체. 타입만 명시
+							// 객체를 생성하지 않고 null로 초기화한 이유는 
+							//데이터를 조회하는 작업을 하는 곳이 while문 내부이므로
+							//while문에서 객체를 생성
 		String sql = "select * from tb_board";
 		Connection con = null;
 		PreparedStatement ptmt = null;
@@ -126,19 +132,79 @@ public class BoardDAOImpl implements BoardDAO{
 			con = DBUtil.getConnect();
 			ptmt = con.prepareStatement(sql);
 			rs = ptmt.executeQuery();
-			while(rs.next()) { 
-				System.out.print(rs.getInt(1)+"\t");
-				System.out.print(rs.getString(2)+"\t");
-				System.out.print(rs.getString(3)+"\t");
-				System.out.print(rs.getString("content")+"\t"); 
-				System.out.print(rs.getDate(5)+"\t");
-				System.out.println(rs.getInt(6));
+			while(rs.next()) { //레코드를 조회하기 위해서는
+				//1. 조회한 레코드의 컬럼을 읽어서 DTO로 변환하는 작업
+				board = new BoardDTO(rs.getInt(1), rs.getString(2), 
+						rs.getString(3), rs.getString(4),  rs.getDate(5), 
+						rs.getInt(6));
+				
+				boardlist.add(board);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			DBUtil.close(rs, ptmt, con);
 		}
+		return boardlist;
+	}
+
+	@Override
+	public BoardDTO read(int boardnum) {
+		String sql = "select * from tb_board where boardnum=?";
+		BoardDTO board = null; //조회한 글을 담을 객체. 타입만 명시
+							// 객체를 생성하지 않고 null로 초기화한 이유는 
+							//데이터를 조회하는 작업을 하는 곳이 while문 내부이므로
+							//while문에서 객체를 생성
+		Connection con = null;
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBUtil.getConnect();
+			ptmt = con.prepareStatement(sql);
+			ptmt.setInt(1, boardnum);
+			rs = ptmt.executeQuery();
+			if(rs.next()) { //레코드를 조회하기 위해서는
+				//1. 조회한 레코드의 컬럼을 읽어서 DTO로 변환하는 작업
+				board = new BoardDTO(rs.getInt(1), rs.getString(2), 
+						rs.getString(3), rs.getString(4),  rs.getDate(5), 
+						rs.getInt(6));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(rs, ptmt, con);
+		}
+		return board;
+	}
+
+	@Override
+	public ArrayList<BoardDTO> findbyTitle(String title) {
+		String sql =
+				"select * from tb_board where title like ?";
+		ArrayList<BoardDTO> boardlist = new ArrayList<BoardDTO>();
+		BoardDTO board = null;
+		Connection con = null;
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBUtil.getConnect();
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, "%"+title+"%");
+			rs = ptmt.executeQuery();
+			while(rs.next()) {
+				board = new BoardDTO(rs.getInt(1), rs.getString(2), 
+						rs.getString(3), rs.getString(4),  rs.getDate(5), 
+						rs.getInt(6));
+				//System.out.println(board);
+				boardlist.add(board);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(rs, ptmt, con);
+		}
+		
+		return boardlist;
 	}
 
 }

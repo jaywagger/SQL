@@ -1,7 +1,9 @@
 package jdbt.member.exam;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import jdbt.member.exam.MemeberDAO;
+import jdbt.board.exam.BoardDTO;
 import jdbt.member.exam.MemberDAOImpl;
 
 public class MenuUI {
@@ -60,16 +62,33 @@ public class MenuUI {
 		}
 	}
 	public void findByAddrMenu(){
-		System.out.println("*******사원검색********");
+		System.out.println("*******주소로 사원검색********");
 		System.out.print("주소:");
 		String addr = key.next();
-		//여기에서 EmpDAO의 메소드를 호출하세요
+		//여기에서 MemberDAO의 메소드를 호출하세요
+		ArrayList<MemberDTO> memberlist = dao.findByAddr(addr);
+		int size = memberlist.size();
+		
+		for (int i=0; i<size;i++) {
+			MemberDTO member = memberlist.get(i);
+			System.out.println(member.getId()+"\t"+member.getPassword()+
+					"\t"+member.getName()+"\t"+member.getAddr()+"\t"+
+					member.getDeptno());
+		}
+		
 	}
 	
-	
 	public void selectMenu(){
-		System.out.println("*******사원조회********");
-		//여기에서 EmpDAO의 메소드를 호출하세요 - 전체사원조회
+		System.out.println("*******게시글조회********");
+		//여기에서 MemberDAO의 메소드를 호출하세요 - 전체사원조회
+		ArrayList<MemberDTO> memberlist = dao.memberList();
+		int size = memberlist.size();
+		for(int i =0; i<size; i++) {
+			MemberDTO member = memberlist.get(i);
+			System.out.println(member.getId()+"\t"+member.getPassword()+
+					"\t"+member.getName()+"\t"+member.getAddr()+"\t"+
+					member.getDeptno());
+		}
 	}
 }
 

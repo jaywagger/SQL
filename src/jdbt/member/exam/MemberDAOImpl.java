@@ -2,7 +2,9 @@ package jdbt.member.exam;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import jdbt.member.exam.MemberDTO;
 import jdbt.board.exam.BoardDTO;
@@ -89,6 +91,66 @@ public class MemberDAOImpl implements MemeberDAO {
 		}
 		return result;
 
+	}
+
+	@Override
+	public ArrayList<MemberDTO> memberList() {
+		ArrayList<MemberDTO> memberlist = new ArrayList<MemberDTO>();
+		MemberDTO member = null;//조회한 글을 담을 객체. 타입만 명시
+		String sql = "select * from member";
+		Connection con = null;
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBUtil.getConnect();
+			ptmt = con.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			while(rs.next()) { //레코드를 조회하기 위해서는
+				//1. 조회한 레코드의 컬럼을 읽어서 DTO로 변환하는 작업
+				member = new MemberDTO(rs.getString(1), rs.getString(2), 
+						rs.getString(3), rs.getString(4), rs.getString(5));
+				memberlist.add(member);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(ptmt, con);
+		}
+		return memberlist;
+	}
+
+	@Override
+	public ArrayList<MemberDTO> findByAddr(String addr) {
+		String sql =
+				"select * from member where addr like ?";
+		ArrayList<MemberDTO> memberlist = new ArrayList<MemberDTO>();
+		MemberDTO member = null;
+		Connection con = null;
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBUtil.getConnect();
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, "%"+addr+"%");
+			rs = ptmt.executeQuery();
+			while(rs.next()) {
+				member = new MemberDTO(rs.getString(1), rs.getString(2), 
+						rs.getString(3), rs.getString(4), rs.getString(5));
+				memberlist.add(member);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(ptmt, con);
+		}
+		
+		return memberlist;
+	}
+
+	@Override
+	public MemberDTO login(String id, String pass) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
