@@ -13,6 +13,6 @@ public interface BoardDAO {
 	BoardDTO read(int boardnum); //게시글조회 R. 1개만 조회
 	//결과가 1개라 BoardDTO에 넣음. 
 	ArrayList<BoardDTO> findbyTitle(String title); //게시글 검색 List 왜냐면 여러게 게시물이 검색될 수 있음. ArrayList 형식으로
-	
+	//추가추가추ㅏ구ㅏㅜ차ㅜ
 	
 }
