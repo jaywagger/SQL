@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class MenuUI {
 	Scanner key = new Scanner(System.in);
+	int number =0;
 	BoardDAO dao = new BoardDAOImpl();
 	
 	public void insertMenu(){
