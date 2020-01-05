@@ -1,4 +1,4 @@
-package jdbt.board.exam;
+package jdbt.dept;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-//DBMS에 접근하는 중복된 작업을 정의할 클래스
 public class DBUtil {
 	//드라이버 로딩은 클래스가 로딩될 떄 같이 로딩되도록 처리
 	//static {}안의 명령문은 클래스가 로딩될 떄 한 번만 실행되는 코드
