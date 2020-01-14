@@ -1,5 +1,4 @@
 package API.Util;
-
 import java.util.ArrayList;
 
 public class ArrayListTest01 {
