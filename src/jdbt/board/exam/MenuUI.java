@@ -6,15 +6,10 @@ public class MenuUI {
 	Scanner key = new Scanner(System.in);
 
 	int number =0;
-<<<<<<< HEAD
-
-	BoardDAO dao = new BoardDAOImpl();//왜 굳이 임플로 객체 생성? 정보가 다 임플에 있어서?
-=======
 	
 	BoardDAO dao = new BoardDAOImpl();//왜 굳히 임플로 객체 생성? 정보가 다 임플에 있어서?
 
->>>>>>> ed4f8ad1bc0431c4654fba32c76990ba76031367
-	
+
 	public void insertMenu(){
 		System.out.println("*******게시글등록********");
 		System.out.print("아이디:");
